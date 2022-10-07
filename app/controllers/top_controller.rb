@@ -39,17 +39,13 @@ class TopController < ApplicationController
         #signup_password = BCrypt::Password.create(params[:pass])
         
         signup_password = User.select(:pass)
-        x = 0
-        (signup_password.length).times do
-            pass = BCrypt::Password.new(signup_password[x][:pass])
-            if user = User.find_by(uid: params[:uid]) and pass == params[:pass]
-                session[:login_uid] = params[:uid]
-                session[:login_pass] = params[:pass]
-                redirect_to root_path
-            else
-                render 'error'
-            end
-            x +=1
+        pass = BCrypt::Password.new(signup_password[0][:pass])
+        if user = User.find_by(uid: params[:uid]) and pass == params[:pass]
+            session[:login_uid] = params[:uid]
+            session[:login_pass] = params[:pass]
+            redirect_to root_path
+        else
+            render 'error'
         end
         
 
