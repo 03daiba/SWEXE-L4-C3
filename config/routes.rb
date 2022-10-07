@@ -3,5 +3,6 @@ Rails.application.routes.draw do
     get 'top/login'
     post 'top/login'
     root 'top#main'
-
+    get 'top/logout'
+    post 'top/logput'
 end
